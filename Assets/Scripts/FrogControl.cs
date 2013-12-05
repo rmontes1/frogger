@@ -15,6 +15,7 @@ public class FrogControl : MonoBehaviour {
 	public bool canMoveLeft;
 	public bool canMoveRight;
 	public int frogLives;
+	public int deathTimer = 180;
 	private Vector3 respawnPos;
 
 
@@ -44,18 +45,22 @@ public class FrogControl : MonoBehaviour {
 
 	//Frog Death
 	void frogDeath(){
-		frogLives -= 1;
-		scoreTracker.currentFrogLives = frogLives;
-		//gameover
-		if( frogLives <= 0 ){
-			Destroy(this.gameObject);
-		}
+		if (deathTimer > 180) {
+						deathTimer = 0;
+						frogLives -= 1;
+						scoreTracker.currentFrogLives = frogLives;
+						//gameover
+						if (frogLives <= 0) {
+								Destroy (this.gameObject);
+						}
+			else{
+				rigidbody2D.velocity = Vector3.zero;
+				transform.position = respawnPos;
+				transform.eulerAngles = Vector3.zero;
+			}
+				}
 		//lifes left reset frog pos/sprite/speed
-		else{
-			rigidbody2D.velocity = Vector3.zero;
-			transform.position = respawnPos;
-			transform.eulerAngles = Vector3.zero;
-		}
+
 	}
 
 	//Frog Transform Movement Functions
@@ -153,5 +158,8 @@ public class FrogControl : MonoBehaviour {
 			frogDeath();
 		}
 	}
+	void FixedUpdate(){
+		deathTimer++;
+		}
 
 }
