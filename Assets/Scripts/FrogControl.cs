@@ -45,7 +45,7 @@ public class FrogControl : MonoBehaviour {
 
 	//Frog Death
 	void frogDeath(){
-		if (deathTimer > 180) {
+		if (deathTimer > 60) {
 						deathTimer = 0;
 						frogLives -= 1;
 						scoreTracker.currentFrogLives = frogLives;
@@ -160,6 +160,8 @@ public class FrogControl : MonoBehaviour {
 	}
 	void FixedUpdate(){
 		deathTimer++;
+		rigidbody2D.velocity = Vector3.zero;
+
 		}
 
 }

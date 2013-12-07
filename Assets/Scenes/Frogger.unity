@@ -162,7 +162,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 307787588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.628815174, y: -.125339985, z: 0}
+  m_LocalPosition: {x: -.611962676, y: -.125339985, z: 0}
   m_LocalScale: {x: 1.3919661, y: 1.3919661, z: 1}
   m_Children: []
   m_Father: {fileID: 834591509}
@@ -232,7 +232,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 336853749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.886801422, y: -.0807387829, z: 0}
+  m_LocalPosition: {x: -.514943957, y: -.0935614705, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 834591509}
@@ -467,6 +467,7 @@ MonoBehaviour:
   canMoveLeft: 0
   canMoveRight: 0
   frogLives: 2
+  deathTimer: 180
 --- !u!50 &597826848
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -1047,7 +1048,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1163683018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .0924057662, y: -3.23231554, z: 0}
+  m_LocalPosition: {x: .0924057662, y: -3.16759348, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 525335682}
