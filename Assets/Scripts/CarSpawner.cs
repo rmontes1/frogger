@@ -24,9 +24,18 @@ public class CarSpawner : MonoBehaviour
 	public int spawner5D = 60;
 	public int spawner6T;
 	public int spawner6D = 50;
+	public int spawner7T;
+	public int spawner7D = 50;
+	public int spawner8T;
+	public int spawner8D = 50;
+
 	public int minT = 50;
 	public int maxT = 350;
 	public float horizConst = 0.30f;
+
+	private float laneWidth = 0.16f;
+	//private float numberMaxLanes = 8f;
+	private float centerLane;
 
 
 	
@@ -36,6 +45,7 @@ public class CarSpawner : MonoBehaviour
 		carSpeeds = Mathf.Abs( carSpeeds );
 		// Start calling the Spawn function repeatedly after a delay .
 		InvokeRepeating("Spawn", spawnDelay, spawnTime);
+		centerLane = laneWidth/2;
 	}
 	
 	
@@ -45,7 +55,7 @@ public class CarSpawner : MonoBehaviour
 		if (spawner1T > spawner1D) {
 			spawner1T = 0;
 			spawner1D = Random.Range(minT, maxT);
-			spawningXAxis.x = transform.position.x;
+			spawningXAxis.x = transform.position.x +  laneWidth  - centerLane;
 			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
 			carClone.GetComponent<Automobile>().carDirection = carDirection;
@@ -54,7 +64,7 @@ public class CarSpawner : MonoBehaviour
 		if (spawner2T > spawner2D) {
 			spawner2T = 0;
 			spawner2D = Random.Range(minT, maxT);
-			spawningXAxis.x = transform.position.x + horizConst;
+			spawningXAxis.x = transform.position.x + laneWidth * 2 - centerLane;
 			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
 			carClone.GetComponent<Automobile>().carDirection = carDirection;
@@ -63,7 +73,7 @@ public class CarSpawner : MonoBehaviour
 		if (spawner3T > spawner3D) {
 			spawner3T = 0;
 			spawner3D = Random.Range(minT, maxT);
-			spawningXAxis.x = transform.position.x + 0.60f;
+			spawningXAxis.x = transform.position.x + laneWidth * 3 - centerLane;
 			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
 			carClone.GetComponent<Automobile>().carDirection = carDirection;
@@ -72,7 +82,7 @@ public class CarSpawner : MonoBehaviour
 		if (spawner4T > spawner4D) {
 			spawner4T = 0;
 			spawner4D = Random.Range(minT, maxT);
-			spawningXAxis.x = transform.position.x + 0.90f;
+			spawningXAxis.x = transform.position.x + laneWidth * 4 - centerLane;
 			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
 			carClone.GetComponent<Automobile>().carDirection = carDirection;
@@ -81,27 +91,47 @@ public class CarSpawner : MonoBehaviour
 		if (spawner5T > spawner5D) {
 			spawner5T = 0;
 			spawner5D = Random.Range(minT, maxT);
-			spawningXAxis.x = transform.position.x + 1.20f;
+			spawningXAxis.x = transform.position.x + laneWidth * 5 - centerLane;
 			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
 			carClone.GetComponent<Automobile>().carDirection = carDirection;
 		}
 		else spawner5T++;
-		if (spawner6T > spawner5D) {
+		if (spawner6T > spawner6D) {
 			spawner6T = 0;
 			spawner6D = Random.Range(minT, maxT);
-			spawningXAxis.x = transform.position.x + 1.50f;
+			spawningXAxis.x = transform.position.x + laneWidth * 6 - centerLane;
 			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
 			carClone.GetComponent<Automobile>().carDirection = carDirection;
 		}
 		else spawner6T++;
+		if (spawner7T > spawner7D) {
+			spawner7T = 0;
+			spawner7D = Random.Range(minT, maxT);
+			spawningXAxis.x = transform.position.x + laneWidth * 7 - centerLane;
+			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
+			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
+			carClone.GetComponent<Automobile>().carDirection = carDirection;
+		}
+		else spawner7T++;
+		if (spawner8T > spawner8D) {
+			spawner8T = 0;
+			spawner8D = Random.Range(minT, maxT);
+			spawningXAxis.x = transform.position.x + laneWidth * 8 - centerLane;
+			GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
+			carClone.GetComponent<Automobile>().carSpeed = Random.Range(2,4)/2;
+			carClone.GetComponent<Automobile>().carDirection = carDirection;
+		}
+		else spawner8T++;
 
 
 
 	}
 
+	void spawnLanes(){
 
+	}
 
 	void OnDrawGizmos(){
 		Gizmos.color = Color.red;

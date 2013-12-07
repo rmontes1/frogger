@@ -10,13 +10,12 @@ public class FrogControl : MonoBehaviour {
 	public float frogSpeedPhysic;
 	public FrogMovement currentMovementType;
 	private Score scoreTracker;
-	public bool canMoveUp;
-	public bool canMoveDown;
-	public bool canMoveLeft;
-	public bool canMoveRight;
 	public int frogLives;
-	public int deathTimer = 180;
+	public int invT = 120;
+	public bool canMove;
 	private Vector3 respawnPos;
+	public Vector3 lastPos;
+	public Sprite [] spriteState;
 
 
 
@@ -24,15 +23,13 @@ public class FrogControl : MonoBehaviour {
 	void Start () {
 		scoreTracker = GameObject.Find("Score").GetComponent<Score>();
 		scoreTracker.currentFrogLives = frogLives;
-		canMoveUp = true;
-		canMoveDown = true;
-		canMoveRight = true;
-		canMoveLeft = true;
+		canMove = true;
 		respawnPos = new Vector3( 0.23f , -0.8993872f , 0f );
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		//choses movement type for frog
 		if( currentMovementType == FrogMovement.transform ){
 			frogMovementTransform();
@@ -45,70 +42,70 @@ public class FrogControl : MonoBehaviour {
 
 	//Frog Death
 	void frogDeath(){
-		if (deathTimer > 60) {
-						deathTimer = 0;
-						frogLives -= 1;
-						scoreTracker.currentFrogLives = frogLives;
-						//gameover
-						if (frogLives <= 0) {
-								Destroy (this.gameObject);
-						}
-			else{
-				rigidbody2D.velocity = Vector3.zero;
-				transform.position = respawnPos;
-				transform.eulerAngles = Vector3.zero;
-			}
-				}
+		frogLives -= 1;
+		scoreTracker.currentFrogLives = frogLives;
+		//gameover
+		if( frogLives <= 0 ){
+			Destroy(this.gameObject);
+		}
 		//lifes left reset frog pos/sprite/speed
-
+		else{
+			rigidbody2D.velocity = Vector3.zero;
+			transform.position = respawnPos;
+			transform.eulerAngles = Vector3.zero;
+		}
 	}
 
 	//Frog Transform Movement Functions
 	void frogMovementTransform(){
-		if( Input.GetKeyDown(KeyCode.UpArrow) && canMoveUp ){
+		if( Input.GetKeyDown(KeyCode.UpArrow) ){
 			moveUpTransform();
 		}
-		if( Input.GetKeyDown(KeyCode.DownArrow) && canMoveDown ){
+		if( Input.GetKeyDown(KeyCode.DownArrow) ){
 			moveDownTransform();
 		}
-		if( Input.GetKeyDown(KeyCode.LeftArrow) && canMoveLeft ){
+		if( Input.GetKeyDown(KeyCode.LeftArrow) ){
 			moveLeftTransform();
 		}
-		if( Input.GetKeyDown(KeyCode.RightArrow) && canMoveRight ){
+		if( Input.GetKeyDown(KeyCode.RightArrow) ){
 			moveRightTransform();
 		}
 	}
 
 	//Frog Transform Movement
 	void moveUpTransform(){
-		Vector3 currentPos = this.transform.position;
-		currentPos.y += frogSpeed;
-		transform.position = currentPos;
-		transform.eulerAngles = Vector3.zero;
+		//transform.eulerAngles = Vector3.zero;
+		this.GetComponent<SpriteRenderer>().sprite = spriteState[0];
+		Debug.Log( Vector3.up * frogSpeed );
+		lastPos = transform.position;
+		transform.Translate( Vector3.up * frogSpeed );
+
 		scoreTracker.addMultiplier();
+		
 	}
 
 	void moveDownTransform(){
-		Vector3 currentPos = this.transform.position;
-		currentPos.y -= frogSpeed;
-		transform.position = currentPos;
+		//transform.eulerAngles = Vector3.forward * 180;
+		this.GetComponent<SpriteRenderer>().sprite = spriteState[1];
+		lastPos = transform.position;
+		transform.Translate( Vector3.down * frogSpeed);
 		scoreTracker.subtractMultiplier();
-		transform.eulerAngles = Vector3.forward * 180;
+	
 	}
 
 	void moveLeftTransform(){
-		Vector3 currentPos = this.transform.position;
-		currentPos.x -= frogSpeed;
-		transform.position = currentPos;
-		transform.eulerAngles = Vector3.forward * 90;
+		//transform.eulerAngles = Vector3.forward * 90;
+		this.GetComponent<SpriteRenderer>().sprite = spriteState[2];
+		lastPos = transform.position;
+		transform.Translate( Vector3.left * frogSpeed );
 	}
 
 	void moveRightTransform(){
+		//transform.eulerAngles = Vector3.forward * 270;
+		this.GetComponent<SpriteRenderer>().sprite = spriteState[3];
+		lastPos = transform.position;
+		transform.Translate( Vector3.right * frogSpeed );
 
-		Vector3 currentPos = this.transform.position;
-		currentPos.x += frogSpeed;
-		transform.position = currentPos;
-		transform.eulerAngles = Vector3.forward * 270;
 	}
 
 	//Frog Physics Movement Functions
@@ -154,14 +151,16 @@ public class FrogControl : MonoBehaviour {
 
 	//Frog Collision
 	void OnCollisionEnter2D( Collision2D col ){
-		if( col.transform.CompareTag("automobile") ){
+		if( col.transform.CompareTag("automobile") && invT>120 ){
+			invT=0;
 			frogDeath();
+		}
+		else{
+			transform.position = lastPos;
 		}
 	}
 	void FixedUpdate(){
-		deathTimer++;
-		rigidbody2D.velocity = Vector3.zero;
+		invT++;
 
-		}
-
+}
 }
