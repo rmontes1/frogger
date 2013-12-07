@@ -9,6 +9,8 @@ public class Score : MonoBehaviour {
 	public int currentFrogLives;
 	public int incrementScore;
 	private float scoreTimer;
+	private float maxMult;
+	private float minMult;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +18,8 @@ public class Score : MonoBehaviour {
 		multiplier = 1;
 		time = 0;
 		scoreTimer = 0;
+		minMult = 1;
+		maxMult = 11;
 	}
 	
 	// Update is called once per frame
@@ -34,7 +38,17 @@ public class Score : MonoBehaviour {
 	}
 
 	void textUpdate(){
+		keepMultiplierValidRange();
 		guiText.text = "Score: " + score + " Multiplier: " + multiplier + " Time: " + timeFormat() + " Lives: " + currentFrogLives;
+	}
+
+	void keepMultiplierValidRange(){
+		if( multiplier > maxMult ){
+			multiplier = maxMult;
+		}
+		if( multiplier < minMult ){
+			multiplier = minMult;
+		}
 	}
 
 	void timer(){
@@ -48,6 +62,11 @@ public class Score : MonoBehaviour {
 			score += multiplier;
 		}
 	}
+
+	public void resetMultiplier(){
+		multiplier = minMult;
+	}
+
 
 	string timeFormat(){
 		string formattedTime = (int)(time / 60) + ":" + (int)(time % 60);

@@ -232,7 +232,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 336853749}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.514943957, y: -.0935614705, z: 0}
+  m_LocalPosition: {x: -.87893033, y: -.0935614705, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 834591509}
@@ -385,13 +385,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnTime: 5
   spawnDelay: 3
-  car: {fileID: 100000, guid: 39ba8f949114fa3488a7e3a98da2cc45, type: 2}
+  truck: {fileID: 100000, guid: 39ba8f949114fa3488a7e3a98da2cc45, type: 2}
+  car: {fileID: 100000, guid: a24569010216ad2489dd3af6c18e78e7, type: 2}
+  bigTruck: {fileID: 100000, guid: 39ba8f949114fa3488a7e3a98da2cc45, type: 2}
   carSpeeds: 1
   carDirection: 1
   spawnLength: 1.33000004
   carsToSpawn: 3
   spawner1T: 0
   spawner1D: 30
+  difT: 0
   spawner2T: 0
   spawner2D: 60
   spawner3T: 0
@@ -408,6 +411,8 @@ MonoBehaviour:
   spawner8D: 50
   minT: 50
   maxT: 350
+  minS: 2
+  maxS: 4
   horizConst: .300000012
 --- !u!4 &537874200
 Transform:
@@ -449,7 +454,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: .159999996, y: .159999996}
+  m_Size: {x: .100000001, y: .159999996}
   m_Center: {x: -0, y: 0}
 --- !u!114 &597826847
 MonoBehaviour:
@@ -467,7 +472,6 @@ MonoBehaviour:
   frogSpeedPhysic: 1
   currentMovementType: 1
   frogLives: 2
-  invT: 120
   canMove: 0
   lastPos: {x: 0, y: 0, z: 0}
   spriteState:
@@ -696,7 +700,7 @@ Prefab:
     - target: {fileID: 11400000, guid: 6b0b3e8ad0425c249a2bb72fa352f333, type: 2}
       propertyPath: car
       value: 
-      objectReference: {fileID: 100000, guid: 39ba8f949114fa3488a7e3a98da2cc45, type: 2}
+      objectReference: {fileID: 100000, guid: a24569010216ad2489dd3af6c18e78e7, type: 2}
     - target: {fileID: 11400000, guid: 6b0b3e8ad0425c249a2bb72fa352f333, type: 2}
       propertyPath: carSpeeds
       value: 1
@@ -721,6 +725,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 6b0b3e8ad0425c249a2bb72fa352f333, type: 2}
+      propertyPath: truck
+      value: 
+      objectReference: {fileID: 100000, guid: 39ba8f949114fa3488a7e3a98da2cc45, type: 2}
+    - target: {fileID: 11400000, guid: 6b0b3e8ad0425c249a2bb72fa352f333, type: 2}
+      propertyPath: bigTruck
+      value: 
+      objectReference: {fileID: 100000, guid: 39ba8f949114fa3488a7e3a98da2cc45, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b0b3e8ad0425c249a2bb72fa352f333, type: 2}
   m_RootGameObject: {fileID: 537874198}
@@ -1502,7 +1514,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6100000, guid: d387c64114869b64ea8ea27cbcbf8932, type: 2}
       propertyPath: m_Size.x
-      value: .159999996
+      value: .100000001
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: d387c64114869b64ea8ea27cbcbf8932, type: 2}
       propertyPath: frogLives

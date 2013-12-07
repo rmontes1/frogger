@@ -11,7 +11,6 @@ public class FrogControl : MonoBehaviour {
 	public FrogMovement currentMovementType;
 	private Score scoreTracker;
 	public int frogLives;
-	public int invT = 120;
 	public bool canMove;
 	private Vector3 respawnPos;
 	public Vector3 lastPos;
@@ -42,6 +41,7 @@ public class FrogControl : MonoBehaviour {
 
 	//Frog Death
 	void frogDeath(){
+		destroyAutomobiles();
 		frogLives -= 1;
 		scoreTracker.currentFrogLives = frogLives;
 		//gameover
@@ -53,6 +53,15 @@ public class FrogControl : MonoBehaviour {
 			rigidbody2D.velocity = Vector3.zero;
 			transform.position = respawnPos;
 			transform.eulerAngles = Vector3.zero;
+		}
+	}
+
+	void destroyAutomobiles(){
+		GameObject [] vehicles = GameObject.FindGameObjectsWithTag("automobile");
+		if( vehicles != null ){
+			foreach( GameObject carToDelete in vehicles ){
+				Destroy( carToDelete );
+			}
 		}
 	}
 
@@ -150,17 +159,15 @@ public class FrogControl : MonoBehaviour {
 
 
 	//Frog Collision
-	void OnCollisionEnter2D( Collision2D col ){
-		if( col.transform.CompareTag("automobile") && invT>120 ){
-			invT=0;
+	void OnCollisionStay2D( Collision2D col ){
+		if( col.transform.CompareTag("automobile") ){
+	
 			frogDeath();
 		}
 		else{
 			transform.position = lastPos;
+			scoreTracker.resetMultiplier();
 		}
 	}
-	void FixedUpdate(){
-		invT++;
 
-}
 }
