@@ -63,6 +63,7 @@ public class FrogControl : MonoBehaviour {
 		}
 		//lifes left reset frog pos/sprite/speed
 		else{
+			scoreTracker.resetMultiplier();
 			rigidbody2D.velocity = Vector3.zero;
 			transform.position = respawnPos;
 			transform.eulerAngles = Vector3.zero;
