@@ -8,6 +8,7 @@ public class CarSpawner : MonoBehaviour
 	public GameObject truck;
 	public GameObject car;
 	public GameObject bigTruck;
+	public GameObject assHoleCar;
 	// The prefab car to create
 	public float carSpeeds;
 	public Direction carDirection;
@@ -33,10 +34,10 @@ public class CarSpawner : MonoBehaviour
 	public int spawner8T;
 	public int spawner8D = 50;
 	
-	public int minT = 50;
-	public int maxT = 350;
-	public int minS = 2;
-	public int maxS = 4;
+	public int minT = 60;
+	public int maxT = 360;
+	public int minS = 1;
+	public int maxS = 3;
 	public float horizConst = 0.30f;
 	
 	private float laneWidth = 0.16f;
@@ -128,7 +129,7 @@ public class CarSpawner : MonoBehaviour
 			spawner4T = 0;
 			spawner4D = Random.Range(minT, maxT);
 			spawningXAxis.x = transform.position.x + laneWidth * 4 - centerLane;
-			int randCar = Random.Range(1,4);
+			int randCar = Random.Range(1,5);
 			if(randCar == 1){
 				GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 				carClone.GetComponent<Automobile>().carSpeed = Random.Range(minS,maxS)/2;
@@ -143,6 +144,9 @@ public class CarSpawner : MonoBehaviour
 				GameObject carClone = (GameObject)Instantiate( bigTruck, spawningXAxis, transform.rotation);
 				carClone.GetComponent<Automobile>().carSpeed = Random.Range(minS,maxS)/2;
 				carClone.GetComponent<Automobile>().carDirection = carDirection;
+			}
+			else if (randCar==4){
+				GameObject carClone = (GameObject) Instantiate(assHoleCar, spawningXAxis, transform.rotation);
 			}
 		}
 		else spawner4T++;
@@ -172,7 +176,7 @@ public class CarSpawner : MonoBehaviour
 			spawner6T = 0;
 			spawner6D = Random.Range(minT, maxT);
 			spawningXAxis.x = transform.position.x + laneWidth * 6 - centerLane;
-			int randCar = Random.Range(1,4);
+			int randCar = Random.Range(1,5);
 			if(randCar == 1){
 				GameObject carClone = (GameObject)Instantiate( car, spawningXAxis, transform.rotation);
 				carClone.GetComponent<Automobile>().carSpeed = Random.Range(minS,maxS)/2;
@@ -187,6 +191,9 @@ public class CarSpawner : MonoBehaviour
 				GameObject carClone = (GameObject)Instantiate( bigTruck, spawningXAxis, transform.rotation);
 				carClone.GetComponent<Automobile>().carSpeed = Random.Range(minS,maxS)/2;
 				carClone.GetComponent<Automobile>().carDirection = carDirection;
+			}
+			else if (randCar == 4){
+				GameObject carClone = (GameObject) Instantiate(assHoleCar, spawningXAxis, transform.rotation);
 			}
 		}
 		else spawner6T++;
@@ -232,6 +239,7 @@ public class CarSpawner : MonoBehaviour
 				carClone.GetComponent<Automobile>().carSpeed = Random.Range(minS,maxS)/2;
 				carClone.GetComponent<Automobile>().carDirection = carDirection;
 			}
+
 		}
 		else spawner8T++;
 		
