@@ -8,7 +8,7 @@ public class assHoleCar : MonoBehaviour {
 	void Start () {
 		frogger = GameObject.Find ("Frog");
 		//float x = frogger.transform.position.x;
-
+		this.GetComponent<SpriteRenderer>().color = new Color( 0.3f , 0.3f , 1f );
 	
 	}
 	

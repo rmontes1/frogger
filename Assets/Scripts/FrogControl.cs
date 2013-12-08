@@ -14,7 +14,9 @@ public class FrogControl : MonoBehaviour {
 	public bool canMove;
 	public Vector3 lastPos;
 	public int croaksLeft;
-	public Sprite [] spriteState;
+	public AudioClip croakSound;
+	public AudioClip moveSound;
+	public AudioClip ranOver;
 
 	private Vector3 respawnPos;
 	private bool croaking;
@@ -97,38 +99,47 @@ public class FrogControl : MonoBehaviour {
 
 	//Frog Transform Movement
 	void moveUpTransform(){
-		//transform.eulerAngles = Vector3.zero;
-		this.GetComponent<SpriteRenderer>().sprite = spriteState[0];
+		jumpSound();
+		transform.eulerAngles = Vector3.zero;
+		//this.GetComponent<SpriteRenderer>().sprite = spriteState[0];
 		Debug.Log( Vector3.up * frogSpeed );
 		lastPos = transform.position;
-		transform.Translate( Vector3.up * frogSpeed );
+		transform.Translate( Vector3.up * frogSpeed , Space.World );
 
 		scoreTracker.addMultiplier();
 		
 	}
 
 	void moveDownTransform(){
-		//transform.eulerAngles = Vector3.forward * 180;
-		this.GetComponent<SpriteRenderer>().sprite = spriteState[1];
+		jumpSound();
+		transform.eulerAngles = Vector3.forward * 180;
+		//this.GetComponent<SpriteRenderer>().sprite = spriteState[1];
 		lastPos = transform.position;
-		transform.Translate( Vector3.down * frogSpeed);
+		transform.Translate( Vector3.down * frogSpeed , Space.World);
 		scoreTracker.subtractMultiplier();
 	
 	}
 
 	void moveLeftTransform(){
-		//transform.eulerAngles = Vector3.forward * 90;
-		this.GetComponent<SpriteRenderer>().sprite = spriteState[2];
+		jumpSound();
+		transform.eulerAngles = Vector3.forward * 90;
+	//	this.GetComponent<SpriteRenderer>().sprite = spriteState[2];
 		lastPos = transform.position;
-		transform.Translate( Vector3.left * frogSpeed );
+		transform.Translate( Vector3.left * frogSpeed, Space.World );
 	}
 
 	void moveRightTransform(){
-		//transform.eulerAngles = Vector3.forward * 270;
-		this.GetComponent<SpriteRenderer>().sprite = spriteState[3];
+		jumpSound();
+		transform.eulerAngles = Vector3.forward * 270;
+		//this.GetComponent<SpriteRenderer>().sprite = spriteState[3];
 		lastPos = transform.position;
-		transform.Translate( Vector3.right * frogSpeed );
+		transform.Translate( Vector3.right * frogSpeed, Space.World );
 
+	}
+
+	void jumpSound(){
+		this.audio.clip = moveSound;
+		this.audio.Play();
 	}
 
 	//Frog Physics Movement Functions
@@ -174,8 +185,11 @@ public class FrogControl : MonoBehaviour {
 	public void croak(){
 		croakDuration();
 		if( Input.GetKeyDown(KeyCode.Space) && canCroak ){
+			this.audio.clip = croakSound;
+			this.audio.Play();
 			croaking = true;
 			canCroak = false;
+			croaksLeft--;
 		}
 	}
 
