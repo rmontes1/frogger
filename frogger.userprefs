@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FrogControl.cs">
     <Files>
-      <File FileName="Assets\Scripts\FrogControl.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FrogControl.cs" Line="204" Column="33" />
+      <File FileName="Assets\Scripts\Score.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CarSpawner.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CanMove.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\FrogControl.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

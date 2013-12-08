@@ -12,22 +12,35 @@ public class FrogControl : MonoBehaviour {
 	private Score scoreTracker;
 	public int frogLives;
 	public bool canMove;
-	private Vector3 respawnPos;
 	public Vector3 lastPos;
+	public int croaksLeft;
 	public Sprite [] spriteState;
+
+	private Vector3 respawnPos;
+	private bool croaking;
+	private bool canCroak;
+	private float croakTime;
+	private float croakReset;
 
 
 
 	// Use this for initialization
 	void Start () {
+
 		scoreTracker = GameObject.Find("Score").GetComponent<Score>();
 		scoreTracker.currentFrogLives = frogLives;
 		canMove = true;
 		respawnPos = new Vector3( 0.23f , -0.8993872f , 0f );
+		croaking = false;
+		croakTime = 0;
+		croakReset = 0.1f;
+		canCroak = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		croak();
 
 		//choses movement type for frog
 		if( currentMovementType == FrogMovement.transform ){
@@ -157,6 +170,29 @@ public class FrogControl : MonoBehaviour {
 		   
 	}
 
+	public void croak(){
+		croakDuration();
+		if( Input.GetKeyDown(KeyCode.Space) && canCroak ){
+			croaking = true;
+			canCroak = false;
+		}
+	}
+
+
+	void croakDuration(){
+
+		if( croaking ){
+			croakTime += Time.deltaTime;
+			if( croakTime > croakReset ){
+				croakTime = 0;
+				croaking = false;
+				if( croaksLeft > 0 ){
+					canCroak = true;
+				}
+			}
+		}
+	}
+
 
 	//Frog Collision
 	void OnCollisionStay2D( Collision2D col ){
@@ -166,7 +202,12 @@ public class FrogControl : MonoBehaviour {
 		}
 		else{
 			transform.position = lastPos;
-			scoreTracker.resetMultiplier();
+		}
+	}
+
+	void OnTriggerStay2D( Collider2D col ){
+		if( col.transform.CompareTag("automobile") && croaking ){
+			col.rigidbody2D.velocity = Vector3.zero;
 		}
 	}
 
