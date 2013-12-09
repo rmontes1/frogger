@@ -3,14 +3,15 @@ using System.Collections;
 
 public class Score : MonoBehaviour {
 
-	public float score;
-	public float multiplier;
+	public int score;
+	public int multiplier;
 	public float time;
 	public int currentFrogLives;
 	public int incrementScore;
 	private float scoreTimer;
-	private float maxMult;
-	private float minMult;
+	private int maxMult;
+	private int minMult;
+	private bool gameOver;
 
 	// Use this for initialization
 	void Start () {
@@ -20,13 +21,17 @@ public class Score : MonoBehaviour {
 		scoreTimer = 0;
 		minMult = 1;
 		maxMult = 11;
+		gameOver = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		textUpdate();
-		timer();
-		addToScore();
+		if( !gameOver )
+		{
+			textUpdate();
+			timer();
+			addToScore();
+		}
 	}
 
 	public void addMultiplier(){
@@ -71,5 +76,11 @@ public class Score : MonoBehaviour {
 	string timeFormat(){
 		string formattedTime = (int)(time / 60) + ":" + (int)(time % 60);
 		return formattedTime;
+	}
+
+	public void gameIsOver(){
+		currentFrogLives = 0;
+		guiText.text = "Score: " + score + " Multiplier: " + multiplier + " Time: " + timeFormat() + " Lives: " + currentFrogLives;
+		gameOver = true;
 	}
 }

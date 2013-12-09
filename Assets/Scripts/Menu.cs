@@ -18,12 +18,15 @@ public class Menu : MonoBehaviour {
 
 	void CycleOptions(){
 		if( Input.GetKeyDown( KeyCode.UpArrow ) ){
+			audio.Play();
 			changeOptionUp();
 		}
 		if( Input.GetKeyDown( KeyCode.DownArrow) ){
+			audio.Play();
 			changeOptionDown();
 		}
 		if( Input.GetKeyDown( KeyCode.Return ) ) {
+			audio.Play();
 			excuteOption();
 		}
 	}

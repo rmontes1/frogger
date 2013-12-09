@@ -13,7 +13,8 @@ public class FrogControl : MonoBehaviour {
 	public int frogLives;
 	public bool canMove;
 	public Vector3 lastPos;
-	public int croaksLeft;
+	private int croaksLeft;
+	public int maxCroak;
 	public AudioClip croakSound;
 	public AudioClip moveSound;
 	public AudioClip ranOver;
@@ -23,12 +24,14 @@ public class FrogControl : MonoBehaviour {
 	private bool canCroak;
 	private float croakTime;
 	private float croakReset;
+	private GameObject gameManager;
+	public GameObject frogRibbit;
 
 
 
 	// Use this for initialization
 	void Start () {
-
+		gameManager = GameObject.Find("GameManager");
 		scoreTracker = GameObject.Find("Score").GetComponent<Score>();
 		scoreTracker.currentFrogLives = frogLives;
 		canMove = true;
@@ -37,6 +40,7 @@ public class FrogControl : MonoBehaviour {
 		croakTime = 0;
 		croakReset = 0.1f;
 		canCroak = true;
+		croaksLeft = maxCroak;
 	}
 	
 	// Update is called once per frame
@@ -56,16 +60,20 @@ public class FrogControl : MonoBehaviour {
 
 	//Frog Death
 	void frogDeath(){
-		destroyAutomobiles();
 		frogLives -= 1;
+		destroyAutomobiles();
 		scoreTracker.currentFrogLives = frogLives;
 		//gameover
 		if( frogLives <= 0 ){
+			gameManager.SendMessage("GameOver");
+			scoreTracker.gameIsOver();
 			Destroy(this.gameObject);
 		}
 		//lifes left reset frog pos/sprite/speed
 		else{
 			scoreTracker.resetMultiplier();
+			croaksLeft = maxCroak;
+			canCroak = true;
 			rigidbody2D.velocity = Vector3.zero;
 			transform.position = respawnPos;
 			transform.eulerAngles = Vector3.zero;
@@ -184,7 +192,11 @@ public class FrogControl : MonoBehaviour {
 
 	public void croak(){
 		croakDuration();
+
 		if( Input.GetKeyDown(KeyCode.Space) && canCroak ){
+			GameObject ribbit = (GameObject)Instantiate( frogRibbit );
+			ribbit.transform.position = this.transform.position;
+
 			this.audio.clip = croakSound;
 			this.audio.Play();
 			croaking = true;

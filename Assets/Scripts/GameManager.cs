@@ -14,21 +14,6 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		reset();
-		switchMovement();
-	}
-
-	void switchMovement(){
-		if( Input.GetKeyDown( KeyCode.M ) ){
-			if(toggleMovement){
-				frog.currentMovementType = FrogControl.FrogMovement.physics;
-				toggleMovement = false;
-			}
-			else{
-				frog.transform.rigidbody2D.velocity = Vector3.zero;
-				frog.currentMovementType = FrogControl.FrogMovement.transform;
-				toggleMovement = true;
-			}
-		}
 	}
 
 	void reset(){

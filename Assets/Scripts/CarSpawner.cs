@@ -146,7 +146,9 @@ public class CarSpawner : MonoBehaviour
 				carClone.GetComponent<Automobile>().carDirection = carDirection;
 			}
 			else if (randCar==4){
-				GameObject carClone = (GameObject) Instantiate(assHoleCar, spawningXAxis, transform.rotation);
+				if( assHoleCar != null ){
+					GameObject carClone = (GameObject) Instantiate(assHoleCar, spawningXAxis, transform.rotation);
+				}
 			}
 		}
 		else spawner4T++;
@@ -193,7 +195,9 @@ public class CarSpawner : MonoBehaviour
 				carClone.GetComponent<Automobile>().carDirection = carDirection;
 			}
 			else if (randCar == 4){
-				GameObject carClone = (GameObject) Instantiate(assHoleCar, spawningXAxis, transform.rotation);
+				if( assHoleCar != null ){
+					GameObject carClone = (GameObject) Instantiate(assHoleCar, spawningXAxis, transform.rotation);
+				}
 			}
 		}
 		else spawner6T++;
