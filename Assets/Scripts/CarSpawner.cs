@@ -28,11 +28,11 @@ public class CarSpawner : MonoBehaviour
 	public int spawner5T;
 	public int spawner5D = 60;
 	public int spawner6T;
-	public int spawner6D = 50;
+	public int spawner6D = 180;
 	public int spawner7T;
-	public int spawner7D = 50;
+	public int spawner7D = 120;
 	public int spawner8T;
-	public int spawner8D = 50;
+	public int spawner8D = 160;
 	
 	public int minT = 60;
 	public int maxT = 360;

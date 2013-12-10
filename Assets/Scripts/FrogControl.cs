@@ -219,6 +219,10 @@ public class FrogControl : MonoBehaviour {
 			}
 		}
 	}
+	void FixedUpdate()
+	{
+				this.rigidbody2D.velocity = Vector3.zero;
+	}
 
 
 	//Frog Collision
